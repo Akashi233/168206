@@ -1,0 +1,67 @@
+class table :  
+         graph = {}  
+         graph["musicscore"] = {}  
+         graph["musicscore"]["disc"] = 5  
+         graph["musicscore"]["poster"] = 0  
+         graph["disc"] = {}  
+         graph["disc"]["guitar"] = 15  
+         graph["disc"]["drumset"] = 20  
+         graph["poster"] = {}  
+         graph["poster"]["guitar"] = 30  
+         graph["poster"]["drumset"] = 35  
+         graph["drumset"] = {}  
+         graph["drumset"]["piano"] = 10  
+         graph["guitar"] = {}  
+         graph["guitar"]["piano"] = 20 
+         graph["piano"] = {}  
+         infinity = float("inf")  
+         costs = {}  
+         costs["disc"] = 5  
+         costs["poster"] = 0  
+         costs["guitar"] = infinity  
+         costs["drumset"] = infinity   
+         costs["piano"] = infinity    
+         parents = {}  
+         parents["disc"] = "musicscore"  
+         parents["poster"] = "musicscore"  
+         parents["guitar"] = None  
+         parents["drumset"] = None  
+         parents["piano"] = None  
+         processed = []   
+   
+    def find_lowest_cost_node(costs):	  
+       lowest_cost = float('inf')  
+       lowest_cost_node = None	  
+       for node in costs:			  
+          if not node in processed:				  
+                 if costs[node] < lowest_cost:				  
+                   lowest_cost = costs[node]				  
+                   lowest_cost_node = node	  
+       return lowest_cost_node   
+      
+   def find_less_path():	  
+       node = "piano"	  
+       less_path = ["piano"]	  
+       while table.parents[node] != "musicscore":		  
+           less_path.append(table.parents[node])		  
+           node = table.parents[node]	  
+       less_path.append("musicscore")	  
+       return less_path  
+     
+   def find():  
+       node = find_lowest_cost_node(table.costs)	  
+       while node is not None:				  
+           cost =table.costs[node]			  
+           neighbors =table. graph[node]			  
+          for n in neighbors :			  
+   	     new_cost = cost + neighbors[n]			  
+              if new_cost <table. costs[n]:				  
+                  table.costs[n] = new_cost				  
+                  table.parents[n] = node		  
+           print(node)  
+           processed.append(node)		  
+           node = find_lowest_cost_node(table.costs)	  
+       less_path = find_less_path()	  
+       less_path.reverse()	  
+       print(less_path)		  
+  find() 
